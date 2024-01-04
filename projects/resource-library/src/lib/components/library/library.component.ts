@@ -158,7 +158,8 @@ export class LibraryComponent implements OnInit, AfterViewInit, OnDestroy {
         this.searchFormConfig.forEach(config => {
             const value = _.get(this.collectionhierarcyData, config.code);
             if (value && config.code !== 'primaryCategory') {
-                this.defaultFilters[config.code] = Array.isArray(value) ? value : [value];
+                // this.defaultFilters[config.code] = Array.isArray(value) ? value : [value];
+                this.defaultFilters[config.code] = '';
             } else if (config.code === 'primaryCategory') {
                 config.default = this.targetPrimaryCategories;
                 config.range = this.targetPrimaryCategories;
@@ -242,6 +243,7 @@ export class LibraryComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     onChangeEvent(event: any) {
+        console.log(event)
         switch (event.type) {
           case 'content':
             this.selectedContent = event.content;
