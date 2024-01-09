@@ -142,8 +142,54 @@ export class LibraryFilterComponent implements OnInit, OnChanges {
 
   onStatusChanges($event) {
   }
+  addDepends(event){
+    if(event.board){
+      this.filterFields.forEach((config)=>{
+        if(config.code === 'medium' || config.code === 'subject' || config.code === 'difficultyLevel'){
+          if(!config.depends.includes('board')){
+              config.depends.push('board');
+              // this.fetchFrameWorkDetails()
+          }
+          
+        }
+        // if(config.code === 'subject'){
+        //   config.depends.push('board')
+        // }
+        // if(config.code === 'difficultyLevel'){
+        //   config.depends.push('board')
+        // }
+      })
+    }
+    if(event.medium.length){
+      this.filterFields.forEach((config)=>{
+        if(config.code === 'subject' || config.code === 'difficultyLevel'){
+          if(!config.depends.includes('medium')){
+            config.depends.push('medium')
+            // this.fetchFrameWorkDetails()
+        }
+
+        }
+        // if(config.code === 'difficultyLevel'){
+        //   config.depends.push('medium')
+        // }
+        
+      })
+    }
+    if(event.subject.length){
+      this.filterFields.forEach((config)=>{
+        if(config.code === 'difficultyLevel'){
+          if(!config.depends.includes('subject')){
+            config.depends.push('subject')
+            // this.fetchFrameWorkDetails()
+        }
+        }
+        
+      })
+    }
+  }
 
   valueChanges($event) {
+    // this.addDepends($event)
     this.filterValues = $event;
   }
 }

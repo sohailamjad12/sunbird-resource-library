@@ -54,6 +54,7 @@ export class LibraryComponent implements OnInit, AfterViewInit, OnDestroy {
         collectionType: 'collection'
     };
     public addContentTelemetryLabel = '';
+    assessmentType:any;
 
     constructor(public telemetryService: EditorTelemetryService,
                 private editorService: EditorService,
@@ -83,6 +84,10 @@ export class LibraryComponent implements OnInit, AfterViewInit, OnDestroy {
             } else {
                 this.frameworkId = _.first(_.castArray(this.collectionhierarcyData.framework));
             }
+            const assessType = this.collectionhierarcyData?.primaryCategory.split(' ');
+            this.assessmentType = assessType[0]?.toString().split('/');
+
+
             this.setDefaultFilters();
             this.fetchContentList();
             this.telemetryService.telemetryPageId = this.pageId;
@@ -165,11 +170,15 @@ export class LibraryComponent implements OnInit, AfterViewInit, OnDestroy {
                 config.range = this.targetPrimaryCategories;
                 this.defaultFilters['primaryCategory'] = this.targetPrimaryCategories;
                 this.defaultFilters['objectType'] = this.targetObjectTypes;
+                this.defaultFilters['assessmentType'] = this.assessmentType
             }
         });
     }
 
     fetchContentList(filters?, query?) {
+        if(filters){
+            filters.assessmentType = this.assessmentType
+        } 
         filters = filters || this.defaultFilters;
         const option = {
             url: 'composite/v3/search',
