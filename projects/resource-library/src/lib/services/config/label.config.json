@@ -50,6 +50,7 @@
     "lbl":{
        "search":"Search",
        "subject":"Competency",
+       "difficultyLevel":"Competency Level",
        "medium":"Role",
        "gradeLevel":"Class",
        "contentType":"Content Type",
